@@ -1,0 +1,126 @@
+#shade.hide,
+#modal.hide,
+div#modal.register-modal-box.hide{
+    display: none;
+}
+.shadow-black {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 25;
+}
+.login-modal-box{
+    background-color: white;
+    position: fixed;
+    width: 400px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    z-index: 30;
+    margin-top: -150px;
+    margin-left: -200px;
+    border-top: 8px #3098d8 solid;
+    box-shadow: 0 0 8px 4px #333;
+    background-image: url(../images/geo.png);
+}
+div#modal.register-modal-box{
+    background-color: white;
+    position: fixed !important;
+    width: 600px;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    z-index: 30;
+    margin-top: -300px;
+    margin-left: -300px;
+    border-top: 8px #0e98ea solid;
+    box-shadow: 0 0 8px 4px #333;
+    background-image: url(../images/geo.png);
+}
+
+.login-modal-box input{
+    font-size: 14px;
+    color: #333;
+    padding: 0 20px;
+    width: 225px;
+    height: 30px;
+    background: #f8f8f8;
+    border: 1px solid #dedede;
+    border-radius: 3px;
+    line-height: 36px;
+}
+
+.login-modal-box .buttons{
+    height: 30px;
+    border-radius: 5px;
+    width: 135px;
+    background: #ffd500;
+    float: left;
+    color: #666;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    cursor: pointer;
+    position: relative;
+}
+
+#modal h2,#Register_modal h2 {
+    font-size: 24px !important;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+#modal span,#Register_modal span {
+    font-size: 16px;
+    margin-left: 5px;
+}
+#modal p,#Register_modal p {
+    margin: 40px 60px;
+}
+p.error_message{
+    position: absolute;
+    bottom: 38px;
+    color:red;
+}
+.register-button{
+    color: #ccc;
+    font-size: 14px;
+    line-height: 30px;
+    margin-right: 70px;
+    float: right;
+}
+
+/*register*/
+
+.register-modal-box .buttons{
+    height: 50px;
+
+    width: 135px;
+    background: #009b97;
+    float: left;
+    color: #ffffff;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+    position: relative;
+}
+.register-modal-box input[type='text'],.register-modal-box input[type='password']{
+    font-size: 14px;
+    color: #333;
+    padding: 0 20px;
+    width: 225px;
+    height: 30px;
+    background: #f8f8f8;
+    border: 1px solid #dedede;
+    border-radius: 3px;
+    line-height: 36px;
+}
+p.register-error_message{
+    position: absolute;
+    bottom: 38px;
+    color:red;
+}

@@ -1,0 +1,122 @@
+
+.content{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.content p{
+    text-indent: 2em;
+}
+.table p {
+     text-indent: 0;
+}
+
+body > div.sweet-alert > h2 {
+    font-size: 18px;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+#reservation.personal-box {
+    background-color: white;
+    /*position: fixed;*/
+    position: relative;
+    /*height: 100%;*/
+    width: 100%;
+    z-index: 15;
+
+    border-top: 8px #000000 solid;
+    /*box-shadow: 0 0 8px 4px #333;*/
+    /*background-image: url(../images/geo.png);*/
+}
+
+h2 {
+    margin: 20px 20px;
+}
+
+h3,h4 {
+    margin: 40px 40px;
+}
+h4{background: #ffd500}
+
+span {
+    font-size: 14px;
+}
+
+.shopbtn {
+
+    background-color: #c95f39;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    font-size: 14px;
+
+    bottom: 20px;
+
+    transform: translateX(0px);
+
+}
+.addbtn {
+    position: absolute;
+    background-color: #ee3f03;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    bottom: 20px;
+    left: 100%;
+    transform: translateX(-340px);
+
+}
+
+
+.exitbtn {
+
+    background-color: #c95f39;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    font-size: 14px;
+
+    bottom: 20px;
+
+
+}
+.table{
+    display: inline-block;
+    width:200px;
+    height: 150px;
+    float: left;
+    background-color: #76b600;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+    margin: 5px 5px;
+    text-align: center;
+    line-height: 120px;
+}
+
+.order{
+    background-color: #c54001;
+}
+.table:hover{
+     background-color: #e1801f;
+}
+.six {
+    width: 150px;
+    height: 150px;
+
+    line-height: 120px;
+}
+.four{
+    width:100px;
+    height: 70px;
+     line-height: 20px;
+}
+
+.two{
+    width:70px;
+    height: 70px;
+    line-height: 20px;
+}

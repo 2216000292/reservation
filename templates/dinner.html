@@ -1,0 +1,11 @@
+<p>Now can also reserve these restaurant rooms.</p>
+<p>The Hall which is big can hold a lot of table, in addition to the other can only contain at most two tables </p>
+{% for dinner in dinners %}
+    {% if dinner.state == "Free" %}
+        {% if dinner.title == "Hall" %}
+            {{ dinner.title}}<input style="margin-right: 20px" type="radio" value="{{ dinner.title}}" name ="dinner name" CHECKED>
+            {% else %}
+             {{ dinner.title}}<input style="margin-right: 20px" type="radio" value="{{ dinner.title}}" name ="dinner name" >
+          {% endif %}
+    {% endif %}
+{% endfor %}

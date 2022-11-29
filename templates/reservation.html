@@ -1,0 +1,428 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reservation</title>
+    <link rel="stylesheet" href="{% static '/css/login.css' %}">
+    <link rel="stylesheet" href="{% static '/css/reservation.css' %}">
+    <link rel="stylesheet" href="{% static '/css/sweetalert.css' %}">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #reservation h2 {
+            background: #ce4800;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #reservation h3 {
+            margin: 0 20px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="reservation" class="personal-box">
+    {% csrf_token %}
+    <h2>
+        RESERVATION |
+        <span>The restaurant reservation</span>
+    </h2>
+    <hr>
+    {% if datas.name %}
+        <h3>Welcome {{ datas.name }} entering the restaurant reservation order system ！</h3>
+    {% else %}
+        <h3>Welcome visitors enter the restaurant booking order system！</h3>
+    {% endif %}
+    <hr>
+    <div class="content">
+        <form action="" method="post" id="reservation-form">
+            {% csrf_token %}
+            {% if datas %}
+                <h3>The basic information</h3>
+                <hr>
+
+                <p id='Preferred_dinner'></p>
+                <p id='Earned_points'>Earned_points:{{ datas.earned_points }}</p>
+                <p>Payment Method:{{ datas.preferred_payment_method }}</p>
+
+            {% endif %}
+            <input type="submit" class="addbtn" value="reservation" style="float: right"/>
+            <h3>Search Information</h3>
+            <hr>
+            <p>Select a date:<input type="date" name="select_date" id="start_time" onchange="create_table()"></p>
+            <p>Select a period<select name="downBox" id="downBox" onchange="create_table()">
+
+                <option value="1">9:00-11:00</option>
+                <option value="2">11:00-13:00</option>
+                <option value="3">15:00-17:00</option>
+                <option value="4">17:00-19:00</option>
+                <option value="5">19:00-21:00</option>
+                <option value="6">21:00-23:00</option>
+
+            </select></p>
+            <p>Estimated number of people(Must)(MAX:16):<input type="number" min="0" max="16" name="number of people">
+            </p>
+            <p>YourName(If you are a visitor you should edit this input box):<input type="text" name="name"></p>
+            <p>Phone:<input type="text" name="tele"></p>
+            <p>email:<input type="text" name="email"></p>
+            {#            <p><input type="button" name="search" value="search" onclick="SearchDinner()"></p>#}
+            <p id="dinner_select"></p>
+            <p id='warntxt'></p>
+
+            <hr>
+            <h3>The Table Information</h3>
+            <hr>
+            <div id="tablecontent">
+            </div>
+
+            <div style="clear: both"></div>
+            <hr>
+
+            <h3>Tips:</h3>
+            <div>
+                <p id="introdouce" style="text-indent:0;margin-left:20px "></p>
+            </div>
+            <hr>
+        </form>
+        <input type="button" class="shopbtn" value="Login" style="float: right" onclick="Show();"/>
+        <input type="button" class="exitbtn" value="Logout" style="float: right" onclick="Logout();"/>
+    </div>
+</div>
+
+<div id="shade" class="shadow-black" onclick="Register_3()"></div>
+<form action="" method="post" id="login-form">
+    <div id="modal" class="login-modal-box">
+        {% csrf_token %}
+        <h2>
+            Login |
+            <span>RESERVATION</span> <a class="register-button" onclick="Register_1();">To register>></a>
+        </h2>
+        <p>User：<input type="text" id='loginuser' name="username"/></p>
+        <p>PassWord：<input type="password" id='loginpass' name="password"/></p>
+        <p class="error_message"></p>
+        <p><input id="btnload" type="submit" class="buttons" value="Login"/>
+            <input type="button" class="buttons" value="Register" style="float: right" onclick="Register_1();"/></p>
+
+    </div>
+</form>
+<div style="clear: both"></div>
+<form action="" method="post" id="register-form">
+    <div id="modal" class="register-modal-box hide">
+        {% csrf_token %}
+        <h2>Register |<span>RESERVATION</span></h2>
+        <p>user：<input type="text" name="username" id='register_user'/></p>
+        <p>password：<input type="password" name="password" id='register_pass'
+                           onkeyup="this.value=this.value.replace(/[^A-Za-z0-9_]/g,'');"/></p>
+        <p>Name: <input type="text" name="name" id='name'/></p>
+        <p>mailing address: <input type="text" name="mailing address" id='register_mailing'/></p>
+        <p><input type="checkbox" name="same" value="1" onchange="getlock(this)">The billing_address is same to the
+            mailing address</p>
+        <p>billing_address: <input type="text" name="billing address" id='register_billing'/></p>
+        <p> preferred payment method：<input type="radio" name="payment" value="1" checked>cash
+            <input type="radio" name="payment" value="2">credit
+            <input type="radio" name="payment" value="3">check </p>
+
+        <p class=" register-error_message">
+
+        </p>
+        <p>
+            <input id="register-btnload" type="submit" class="buttons" value="Register"/>
+            <input type="button" class="buttons" value="Back" style="float: right" onclick="Register_2();"/>
+        </p>
+    </div>
+</form>
+
+
+</body>
+<script type="text/javascript" src="{% static "js/jquery-3.6.0.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery.validate.js" %}"></script>
+<script type="text/javascript" src="{% static "js/sweetalert.js" %}"></script>
+<script>
+    function getlock(obj) {
+        var num = obj.checked;
+        console.log(num)
+        if (num === true) {
+            document.getElementById("register_billing").setAttribute("value", "the same as mailing address");
+            document.getElementById("register_billing").setAttribute("disabled", "disabled");
+        } else {
+            document.getElementById("register_billing").removeAttribute("value");
+            document.getElementById("register_billing").removeAttribute("disabled");
+        }
+
+    }
+
+    function getPreferred() {
+        var str = {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        }
+        console.log("get the preferred dinner");
+        $.post('{% url 'generate_preferred' %}', str, function (res) {
+            console.log("get the preferred dinner" + res.ep);
+
+            document.getElementById('Preferred_dinner').innerHTML = "Preferred diner:" + res.msg;
+            document.getElementById('Earned_points').innerHTML = "Earned_points:" + res['ep'];
+
+
+        });
+    }
+
+    function setTime() {
+        var start = document.getElementById("start_time");
+        var date = new Date();
+        var month_t = date.getMonth().toString();
+        if (date.getMonth() + 1 < 10)
+            month_t = '0' + (date.getMonth() + 1);
+        else
+            month_t = '' + (date.getMonth() + 1);
+
+        var day_t = date.getDate().toString();
+        if (date.getDate() < 10)
+            day_t = '0' + (date.getDate() + 1)
+
+        var dateString = date.getFullYear() + "-" + (month_t) + "-" + day_t;
+        start.value = dateString;
+
+    }
+
+    function getDate(date) {
+        var dateNew = new Date(date)
+        var month = dateNew.getMonth()
+        var day = dateNew.getDate()
+        if (month + 1 === 7 && day === 4) {
+            return 8
+        }
+        var num = dateNew.getDay();
+        console.log(num)
+        return num;
+    }
+
+
+    function Logout() {
+        window.location.href ={% url 'logout' %};
+    }
+
+
+    function Show() {
+
+        document.getElementById('shade').classList.remove('hide');
+        document.getElementById('modal').classList.remove('hide');
+    }
+
+    function Hide() {
+        document.getElementById('shade').classList.add('hide');
+        document.getElementById('modal').classList.add('hide');
+    }
+
+    function SearchDinner() {
+        var start = document.getElementById("start_time");
+        var datevalue = start.value;
+        var period = document.getElementById("downBox");
+        var period_value = period.options[period.selectedIndex].value;
+        $.ajax({
+            type: "get",
+            url: "{% url 'search_dinner' %}",
+            dataType: "html",
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                "datevalue": datevalue,
+                "period": period_value,
+            },
+            success: function (result) {
+                $("#dinner_select").html(result);
+            }
+        });
+    }
+
+    // 注册
+    Register_1 = function () {
+        //document.getElementById('shade').classList.remove('hide');
+        $('.register-modal-box').removeClass('hide');
+        $('.login-modal-box').addClass('hide');
+    }
+
+    Register_2 = function () {
+        {#document.getElementById('shade').classList.add('hide');#}
+        $('.login-modal-box').removeClass('hide');
+        $('.register-modal-box').addClass('hide');
+    }
+
+    Register_3 = function () {
+
+        Hide();
+        $('.login-modal-box').addClass('hide');
+        $('.register-modal-box').addClass('hide');
+    }
+
+    $(document).ready(function () {
+        $('#btnload').click(function () {
+            {#window.location.href =#}
+            {#{% url 'personal_page' %}#}
+        })
+    })
+
+    // 局部刷新！
+    var start = document.getElementById("start_time");
+    var period = document.getElementById("downBox");
+
+    function create_table() {
+        var token = "{{ csrf_token }}"
+
+        var period_value = period.options[period.selectedIndex].value;
+
+        var str = {'csrfmiddlewaretoken': token, 'date': start.value, 'period': period_value}
+
+        $.post('/update-table/', str, function (res) {
+            if (res.status == 0) {
+                setTimeout(() => {
+                    var start = document.getElementById("start_time");
+                    var datevalue = start.value;
+                    $.ajax({
+                        type: "get",
+                        url: "{% url 'change' %}",
+                        dataType: "html",
+                        data: {
+                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                            "datevalue": datevalue,
+                            "period": period_value,
+                        },
+                        success: function (result) {
+                            $("#tablecontent").html(result);
+                        }
+                    });
+                    SearchDinner();
+                }, 1500);
+
+                $.post('/getIntroduce/', str, function (res) {
+                    console.log(res.msg);
+                    document.getElementById("introdouce").innerHTML = res.msg;
+                });
+            }
+        });
+        var num = getDate(start.value)
+        if (num === 6 || num === 0) {
+            document.getElementById("warntxt").innerHTML = "Today is  weekends ,holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
+        } else if (num === 8) {
+            document.getElementById("warntxt").innerHTML = "Today is  Peak dining,holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
+        } else {
+            document.getElementById("warntxt").innerHTML = "<input type='text' name='credit_card' value='no_need' hidden/>"
+        }
+
+
+    }
+
+
+    $(document).ready(function () {
+
+        $("#register-form").validate({
+            submitHandler: function () {
+                var str = $('#register-form').serialize();
+                $.post('{% url 'register' %}', str, function (res) {
+                    if (res.status === 0) {
+                        console.log("hide")
+                        Hide();
+                        Register_3();
+                        swal({
+                            title: res.msg,
+                            type: 'success',
+                            confirmButtonText: "确定"
+                        });
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 1000)
+
+
+                    } else {
+                        swal({
+                            title: res.msg,
+                            type: 'error',
+                            confirmButtonText: "确定"
+                        });
+                    }
+                });
+            }
+        });
+    });
+    $(document).ready(function () {
+
+        $("#login-form").validate({
+            submitHandler: function () {
+                var str = $('#login-form').serialize();
+                $.post('{% url 'login' %}', str, function (res) {
+                    if (res.status == 0) {
+                        swal({
+                            title: res.msg,
+                            type: 'success',
+                            confirmButtonText: "confirm"
+                        });
+
+
+                        setTimeout(() => {
+                            window.location.href = "{% url 'home' %}";
+                        }, 1500);
+
+                    } else {
+                        swal({
+                            title: res.msg,
+                            type: 'error',
+                            confirmButtonText: "confirm"
+                        });
+                    }
+                });
+            }
+        });
+    });
+    $(document).ready(function () {
+
+        $("#reservation-form").validate({
+            submitHandler: function () {
+                var str = $('#reservation-form').serialize();
+
+                $.post('{% url 'rform' %}', str, function (res) {
+                    if (res.status === 0) {
+                        swal({
+                            title: res.msg,
+                            type: 'success',
+                            confirmButtonText: "confirm"
+
+                        });
+                        create_table();
+                        setTimeout(() => {
+                            getPreferred();
+                        }, 1500);
+
+
+                    } else if (res.status === 1) {
+                        swal({
+                            title: res.msg,
+                            type: 'error',
+                            confirmButtonText: "confirm"
+                        });
+                    } else if (res.status === 2) {
+                        console.log("login")
+                        Show();
+                        Register_1();
+                    }
+                });
+            }
+        });
+    });
+
+    var num = getDate(start.value);
+    if (num === 6 || num === 0) {
+        document.getElementById("warntxt").innerHTML = "Today is  weekends ,holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
+    } else if (num === 8) {
+        document.getElementById("warntxt").innerHTML = "Today is  Peak dining,holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
+    } else {
+        document.getElementById("warntxt").innerHTML = "<input type='text' name='credit_card' value='no_need' hidden/>"
+    }
+    Hide();
+    setTime();
+    create_table();
+    getPreferred();
+</script>
+</html>

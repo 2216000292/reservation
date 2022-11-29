@@ -1,0 +1,51 @@
+{% for table in tabledatas %}
+    {% if table.number == 8 %}
+
+        {% if table.state == 'Free' %}
+            <div class="table">
+                <p> ID[{{ table.table_id }}] Table[8]</p>
+            </div>
+        {% else %}
+            <div class="table order">
+                <p> ID[{{ table.table_id }}] Table[8]</p>
+            </div>
+        {% endif %}
+
+    {% elif  table.number == 6 %}
+
+        {% if table.state == 'Free' %}
+            <div class="table six">
+                <p> ID[{{ table.table_id }}] Table[6]</p>
+            </div>
+        {% else %}
+            <div class="table six order">
+                <p> ID[{{ table.table_id }}] Table[6]</p>
+            </div>
+        {% endif %}
+
+    {% elif  table.number == 4 %}
+
+        {% if table.state == 'Free' %}
+            <div class="table four">
+                <p> ID[{{ table.table_id }}] Table[4]</p>
+            </div>
+        {% else %}
+            <div class="table four order">
+                <p> ID[{{ table.table_id }}] Table[4]</p>
+            </div>
+        {% endif %}
+
+    {% elif  table.number == 2 %}
+
+        {% if table.state == 'Free' %}
+            <div class="table two">
+                <p> ID[{{ table.table_id }}] Table[2]</p>
+            </div>
+        {% else %}
+            <div class="table two order">
+                <p> ID[{{ table.table_id }}] Table[2]</p>
+            </div>
+        {% endif %}
+
+    {% endif %}
+{% endfor %}
