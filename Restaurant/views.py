@@ -230,7 +230,7 @@ def resevation_order(request):
     if number:
         number = int(number)
         if credit_card.strip() == '':
-            res = {'status': 1, 'msg': 'Reverse Failed!Please Entry your Credit Card Information！'}
+            res = {'status': 1, 'msg': 'Reserve Failed!Please Entry your Credit Card Information！'}
             return JsonResponse(res)
         tabels = []
         tablenew = 0
@@ -435,7 +435,7 @@ def resevation_order(request):
             datas.earned_points += 15 * number / 10
             datas.save()
 
-            res = {'status': 0, 'msg': 'Reverse Successfully!'}
+            res = {'status': 0, 'msg': 'Reserve Successfully!'}
             return JsonResponse(res)
         elif len(tabels) >= 1:
 
@@ -483,14 +483,14 @@ def resevation_order(request):
             datas.earned_points += 15 * number / 10
             datas.save()
 
-            res = {'status': 0, 'msg': 'Reverse Successfully!'}
+            res = {'status': 0, 'msg': 'Reserve Successfully!'}
             return JsonResponse(res)
 
         else:
-            res = {'status': 1, 'msg': 'Reverse Failed!'}
+            res = {'status': 1, 'msg': 'Reserve Failed!'}
             return JsonResponse(res)
     else:
-        res = {'status': 1, 'msg': 'Reverse Failed!'}
+        res = {'status': 1, 'msg': 'Reserve Failed!'}
         return JsonResponse(res)
     # else:
     #     res = {'status': 2, 'msg': 'Please Login!'}
