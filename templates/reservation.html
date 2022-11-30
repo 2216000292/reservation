@@ -81,8 +81,17 @@
             </div>
 
             <div style="clear: both"></div>
+            
+            {% if not datas.name %}
             <hr>
-
+                <h3>Remind: </h3>
+                <div>
+                    <p id="remind" style="text-indent:0;margin-left:20px "></p>
+                    <l1> only registered user can get points! </l1>
+                </div>
+            {% endif %}
+            <hr>
+            
             <h3>Tips:</h3>
             <div>
                 <p id="introdouce" style="text-indent:0;margin-left:20px "></p>
@@ -416,7 +425,7 @@
     if (num === 6 || num === 0) {
         document.getElementById("warntxt").innerHTML = "Today is  weekends ,holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
     } else if (num === 8) {
-        document.getElementById("warntxt").innerHTML = "Today is  Peak dining,holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
+        document.getElementById("warntxt").innerHTML = "Today is Independence Day,holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
     } else {
         document.getElementById("warntxt").innerHTML = "<input type='text' name='credit_card' value='no_need' hidden/>"
     }
