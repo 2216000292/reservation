@@ -202,7 +202,7 @@
         var dateNew = new Date(date)
         var month = dateNew.getMonth()
         var day = dateNew.getDate()
-        if (month + 1 === 7 && day === 3) {
+        if (month + 1 === 7 && day + 1 === 4) {
             return 8
         }
         var num = dateNew.getDay();
@@ -313,10 +313,10 @@
             }
         });
         var num = getDate(start.value)
-        if (num === 6 || num === 0) {
-            document.getElementById("warntxt").innerHTML = "Today is  weekends ,holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
+        if (num === 6 || num === 5) {
+            document.getElementById("warntxt").innerHTML = "Today is weekends, holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
         } else if (num === 8) {
-            document.getElementById("warntxt").innerHTML = "Today is  Peak dining,holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
+            document.getElementById("warntxt").innerHTML = "Today is Independence Day, holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
         } else {
             document.getElementById("warntxt").innerHTML = "<input type='text' name='credit_card' value='no_need' hidden/>"
         }
@@ -338,7 +338,7 @@
                         swal({
                             title: res.msg,
                             type: 'success',
-                            confirmButtonText: "确定"
+                            confirmButtonText: "confirm"
                         });
                         setTimeout(() => {
                             window.location.reload()
@@ -349,7 +349,7 @@
                         swal({
                             title: res.msg,
                             type: 'error',
-                            confirmButtonText: "确定"
+                            confirmButtonText: "confirm"
                         });
                     }
                 });
@@ -422,10 +422,10 @@
     });
 
     var num = getDate(start.value);
-    if (num === 6 || num === 0) {
-        document.getElementById("warntxt").innerHTML = "Today is  weekends ,holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
+    if (num === 6 || num === 5) {
+        document.getElementById("warntxt").innerHTML = "Today is  weekends, holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
     } else if (num === 8) {
-        document.getElementById("warntxt").innerHTML = "Today is Independence Day,holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
+        document.getElementById("warntxt").innerHTML = "Today is Independence Day, holdfee is required ,<br> user no show will have minimum $10 charge.<br> Please Enter your credit card information <input type='text' name='credit_card'/>"
     } else {
         document.getElementById("warntxt").innerHTML = "<input type='text' name='credit_card' value='no_need' hidden/>"
     }
