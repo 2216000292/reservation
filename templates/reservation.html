@@ -67,9 +67,13 @@
             </select></p>
             <p>Estimated number of people(Must)(MAX:16):<input type="number" min="0" max="16" name="number of people">
             </p>
+            
+            {% if not datas %}
             <p>YourName(If you are a visitor you should edit this input box):<input type="text" name="name"></p>
             <p>Phone:<input type="text" name="tele"></p>
             <p>email:<input type="text" name="email"></p>
+            {% endif %}
+            
             {#            <p><input type="button" name="search" value="search" onclick="SearchDinner()"></p>#}
             <p id="dinner_select"></p>
             <p id='warntxt'></p>
